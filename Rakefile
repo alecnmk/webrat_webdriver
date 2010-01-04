@@ -84,6 +84,7 @@ namespace :spec do
     "integration:mechanize",
     "integration:rails:webrat",
     "integration:rails:selenium",
+    "integration:rails:webdriver",
   ]
 
   namespace :integration do
@@ -98,6 +99,13 @@ namespace :spec do
       task :webrat do
         Dir.chdir "spec/integration/rails" do
           result = system "rake test_unit:rails"
+          raise "Rails integration tests failed" unless result
+        end
+      end
+      
+      task :webdriver do
+        Dir.chdir "spec/integration/rails" do
+          result = system "rake test_unit:webdriver"
           raise "Rails integration tests failed" unless result
         end
       end

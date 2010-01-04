@@ -3,7 +3,7 @@ require 'test_helper'
 class WebratTest < ActionController::IntegrationTest
 
   #Firefox raises a security concern under Selenium
-  unless ENV['WEBRAT_INTEGRATION_MODE'] == 'selenium'
+  unless ENV['WEBRAT_INTEGRATION_MODE'] == 'selenium' || ENV['WEBRAT_INTEGRATION_MODE'] == 'webdriver'
     test "should visit fully qualified urls" do
       visit root_url(:host => "chunkybacon.example.com")
       assert_equal "chunkybacon", request.subdomains.first
@@ -32,16 +32,21 @@ class WebratTest < ActionController::IntegrationTest
     end
   end
 
-  test "should not carry params through redirects" do
-    visit before_redirect_form_path
-    fill_in "Text field", :with => "value"
-    click_button
+  if ENV['WEBRAT_INTEGRATION_MODE'] != 'webdriver'
+    test "should not carry params through redirects" do
+      visit before_redirect_form_path
+      fill_in "Text field", :with => "value"
+      click_button
 
-    automate do
-      selenium.wait_for_page_to_load
+      if ENV['WEBRAT_INTEGRATION_MODE'] == 'selenium'
+        automate do
+          selenium.wait_for_page_to_load
+        end
+      end
+
+      assert response.body !~ /value/
+      assert response.body =~ /custom_param/
     end
-    assert response.body !~ /value/
-    assert response.body =~ /custom_param/
   end
 
   test "should follow internal redirects" do
@@ -108,7 +113,7 @@ class WebratTest < ActionController::IntegrationTest
   end
 
   # Firefox detects and prevents infinite redirects under Selenium
-  unless ENV['WEBRAT_INTEGRATION_MODE'] == 'selenium'
+  unless ENV['WEBRAT_INTEGRATION_MODE'] == 'selenium' || ENV['WEBRAT_INTEGRATION_MODE'] == 'webdriver'
      test "should detect infinite redirects" do
        assert_raises Webrat::InfiniteRedirectError do
          visit infinite_redirect_path

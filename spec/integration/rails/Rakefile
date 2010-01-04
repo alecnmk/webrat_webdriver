@@ -25,6 +25,12 @@ namespace :test_unit do
     Rake::Task['test:integration'].execute
   end
 
-  desc "run both selenium and rails mode Test::Unit suites"
-  task :all => [:rails, :selenium]
+  desc "runs the test::unit based tests in webdriver mode"
+  task :webdriver do
+    ENV['WEBRAT_INTEGRATION_MODE'] = 'webdriver'
+    Rake::Task['test:integration'].execute
+  end
+
+  desc "run all selenium, webdriver and rails mode Test::Unit suites"
+  task :all => [:rails, :selenium, :webdriver]
 end

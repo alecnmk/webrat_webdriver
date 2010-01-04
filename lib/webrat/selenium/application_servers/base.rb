@@ -1,3 +1,4 @@
+require 'socket'
 require "webrat/selenium/silence_stream"
 
 module Webrat

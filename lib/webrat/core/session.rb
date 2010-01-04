@@ -15,6 +15,8 @@ module Webrat
   def self.session_class
     if Webrat.configuration.mode == :selenium
       SeleniumSession
+    elsif Webrat.configuration.mode == :webdriver
+      WebdriverSession
     else
       Session
     end
