@@ -8,11 +8,7 @@ module Webrat
 
         # TODO: this matcher is not useful, extend with Nokogiri
         def matches?(response)
-          begin
-            response.webdriver.find_element(:class, @expected)
-          rescue
-            response.webdriver.find_element(:tag_name, @expected)
-          end
+          response.webdriver.find_element(:xpath, @expected)
         end
 
         # ==== Returns

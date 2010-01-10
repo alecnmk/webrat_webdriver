@@ -22,7 +22,7 @@ module Webrat
 
         # ==== Returns
         # String:: The failure message to be displayed in negative matches.
-        def negative_failure_message
+        def negative_failure_messageex
           "expected the following element's content to not #{content_message}:\n#{@element}"
         end
 
