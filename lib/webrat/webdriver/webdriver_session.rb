@@ -41,7 +41,9 @@ module Webrat
     webrat_deprecate :visits, :visit
 
     def fill_in(field_identifier, options)
-      find_field(field_identifier).send_keys("#{options[:with]}")
+      element = find_field(field_identifier)
+      element.clear
+      element.send_keys("#{options[:with]}")
     end
 
     webrat_deprecate :fills_in, :fill_in
