@@ -58,6 +58,14 @@ module Webrat
       webdriver.current_url
     end
 
+    def click(locator = nil, options = {})
+      begin
+        click_link(locator, options)
+      rescue
+        click_button(locator, options)
+      end
+    end #click
+
     def click_button(locator = nil, options = {})
       if locator.nil? 
         webdriver.find_element(:xpath, "//input|button[@type='submit']").click
@@ -142,6 +150,7 @@ module Webrat
 
       filename = "#{saved_page_dir}/webrat-#{Time.now.to_i}.png"
       $browser.save_screenshot(filename)
+      
       open_in_browser(filename)
     end
 
