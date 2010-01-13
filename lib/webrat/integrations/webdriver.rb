@@ -5,7 +5,7 @@ if defined?(ActionController::IntegrationTest)
     IntegrationTest.class_eval do
       include Webrat::Methods
       include Webrat::Webdriver::Methods
-      include Webrat::Webdriver::Matchers
+      include Webrat::Matchers
     end
   end
 end

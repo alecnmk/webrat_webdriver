@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'spec'
 
 class WebratTest < ActionController::IntegrationTest
 
