@@ -1,7 +1,7 @@
 require "webrat/core/save_and_open_page"
 require "webrat/selenium/application_server_factory"
 require "webrat/selenium/application_servers/base"
-
+require "webrat/webdriver/locators"
 require "selenium-webdriver"
 
 module Webrat
@@ -69,6 +69,7 @@ module Webrat
     end #click
 
     def click_button(locator = nil, options = {})
+      #button_locator = ButtonLocator.new(locator)
       if locator.nil? 
         webdriver.find_element(:xpath, "//input|button[@type='submit']").click
       else

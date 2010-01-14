@@ -22,7 +22,7 @@ class WebratTest < ActionController::IntegrationTest
     fill_in "Text field", :with => "Hello"
     check "TOS"
     select "January"
-    click_button "Test"
+    click "Test"
     assert_contain "OK"
   end
 
