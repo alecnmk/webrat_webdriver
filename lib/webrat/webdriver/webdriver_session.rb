@@ -89,7 +89,11 @@ module Webrat
         begin
           webdriver.find_element(:id, link_locator).click
         rescue
-          webdriver.find_element(:xpath, "//a[@title='#{link_locator}']").click
+					begin
+						webdriver.find_element(:xpath, "//a[@title='#{link_locator}']").click
+					rescue
+						wedriver.find_element(:xpath, "//a//*[text()='#{link_locator}']").click
+					end
         end
       end
     end

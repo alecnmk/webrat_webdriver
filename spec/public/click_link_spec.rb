@@ -370,6 +370,16 @@ describe "click_link" do
     click_link "Link"
   end
 
+  it "should be able to click links with inner html present" do
+		pending
+		with_html <<-HTML
+		<html>
+		<a><span>Link</span></a>
+		</html>
+		HTML
+			
+    click_link "Link"
+  end
   it "should treat non-breaking spaces as spaces" do
     with_html <<-HTML
       <html>

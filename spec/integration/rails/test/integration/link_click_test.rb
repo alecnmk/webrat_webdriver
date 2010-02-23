@@ -24,4 +24,5 @@ class LinkClickTest < ActionController::IntegrationTest
     click_link "Link With (parens)"
     assert_contain("Link:link_with_parens")
   end
+
 end
