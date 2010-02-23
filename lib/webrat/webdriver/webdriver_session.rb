@@ -61,9 +61,17 @@ module Webrat
 
     def click(locator = nil, options = {})
       begin
-        click_link(locator, options)
-      rescue
-        click_button(locator, options)
+        webdriver.find_element(:link, link_locator).click
+      rescue ::Selenium::WebDriver::Error::WebDriverError
+        begin
+          webdriver.find_element(:id, link_locator).click
+        rescue ::Selenium::WebDriver::Error::WebDriverError
+          begin
+            webdriver.find_element(:xpath, "//*[text()='#{link_locator}']").click
+          rescue ::Selenium::WebDriver::Error::WebDriverError
+            click_button(locator, options)
+          end
+        end
       end
     end #click
 
@@ -92,7 +100,7 @@ module Webrat
 					begin
 						webdriver.find_element(:xpath, "//a[@title='#{link_locator}']").click
 					rescue
-						wedriver.find_element(:xpath, "//a//*[text()='#{link_locator}']").click
+						webdriver.find_element(:xpath, "//a//*[text()='#{link_locator}']").click
 					end
         end
       end
