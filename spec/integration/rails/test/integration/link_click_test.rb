@@ -25,4 +25,9 @@ class LinkClickTest < ActionController::IntegrationTest
     assert_contain("Link:link_with_parens")
   end
 
+  test "should be able to click links with nested dom elements" do
+    visit links_path
+    click_link "Link With Nested Label"
+    assert_contain("Link:link_with_nested_label")
+  end
 end
