@@ -168,6 +168,11 @@ module Webrat
       open_in_browser(filename)
     end
 
+
+		def hover(locator)
+			webdriver.find_element(:xpath, "//*[contains(text(),'#{locator}')]").hover
+		end
+
     protected
     def setup #:nodoc:
       Webrat::Selenium::ApplicationServerFactory.app_server_instance.boot

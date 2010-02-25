@@ -25,3 +25,5 @@ Dispatcher.class_eval do
     raise exception
   end
 end
+
+#Selenium::WebDriver::Firefox::DEFAULT_ENABLE_NATIVE_EVENTS = true
