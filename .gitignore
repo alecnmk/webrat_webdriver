@@ -9,6 +9,7 @@ log
 .project
 .loadpath
 *.swp
+*.swo
 results
 test_apps
 *.tmproj
