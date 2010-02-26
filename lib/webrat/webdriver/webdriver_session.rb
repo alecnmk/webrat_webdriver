@@ -115,13 +115,11 @@ module Webrat
     webrat_deprecate :clicks_link_within, :click_link_within
 
     def select(option_text, options = {})
-      select_input_id = options[:from]
-
-      select_element = webdriver.find_element(:tag_name, "select")
-      select_element = webdriver.find_element(:id, select_input_id) unless select_input_id.nil?
-      raise "Can't find appropriate select" if select_element.nil?
+      select_element = options[:from] ?
+        find_field(options[:from]) : webdriver
       select_element.find_element(:xpath, "//option[text()='#{option_text}']").select
     end
+
 
     webrat_deprecate :selects, :select
 
@@ -205,7 +203,7 @@ module Webrat
             label_for = webdriver.find_element(:xpath, "//label[contains(text(),'#{locator}')]")['for']
             begin
               webdriver.find_element(:id, label_for)
-            rescue
+						rescue ::Selenium::WebDriver::Error::WebDriverError
               webdriver.find_element(:name, label_for)
             end
           end
