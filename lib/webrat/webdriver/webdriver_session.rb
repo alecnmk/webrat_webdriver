@@ -69,7 +69,11 @@ module Webrat
           begin
             webdriver.find_element(:xpath, "//*[text()='#{locator}']").click
           rescue ::Selenium::WebDriver::Error::WebDriverError
-            click_button(locator, options)
+						begin
+							webdriver.find_element(:xpath, locator)
+						rescue ::Selenium::WebDriver::Error::WebDriverError
+							click_button(locator, options)
+						end
           end
         end
       end
