@@ -1,6 +1,10 @@
 require 'test_helper'
 
 class FillInTest < ActionController::IntegrationTest
+  test "should fill in text field by xpath" do
+    visit fields_path
+    fill_in "//input[@name='field_by_name']", :with => "value"
+  end
   test "should fill in text field by name" do
     visit fields_path
     fill_in "field_by_name", :with => "value"

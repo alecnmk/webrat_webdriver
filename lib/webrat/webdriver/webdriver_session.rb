@@ -195,23 +195,25 @@ module Webrat
     end
 
     def find_field(locator)
-      # locate by id
       begin
-        # locate by id
-        webdriver.find_element(:id, locator)
+        webdriver.find_element(:xpath, locator)
       rescue ::Selenium::WebDriver::Error::WebDriverError
-        begin 
-          webdriver.find_element(:name, locator)
-        rescue
-          begin
-            #locate by parent label
-            webdriver.find_element(:xpath, "//label[contains(text(),'#{locator}')]/input")
-          rescue ::Selenium::WebDriver::Error::WebDriverError
-            label_for = webdriver.find_element(:xpath, "//label[contains(text(),'#{locator}')]")['for']
+        begin
+          webdriver.find_element(:id, locator)
+        rescue ::Selenium::WebDriver::Error::WebDriverError
+          begin 
+            webdriver.find_element(:name, locator)
+          rescue
             begin
-              webdriver.find_element(:id, label_for)
-						rescue ::Selenium::WebDriver::Error::WebDriverError
-              webdriver.find_element(:name, label_for)
+              #locate by parent label
+              webdriver.find_element(:xpath, "//label[contains(text(),'#{locator}')]/input")
+            rescue ::Selenium::WebDriver::Error::WebDriverError
+              label_for = webdriver.find_element(:xpath, "//label[contains(text(),'#{locator}')]")['for']
+              begin
+                webdriver.find_element(:id, label_for)
+              rescue ::Selenium::WebDriver::Error::WebDriverError
+                webdriver.find_element(:name, label_for)
+              end
             end
           end
         end
