@@ -9,6 +9,11 @@ class WebratTest < ActionController::IntegrationTest
       visit root_url(:host => "chunkybacon.example.com")
       assert_equal "chunkybacon", request.subdomains.first
     end
+  else
+    test "should visit fully qualified urls" do
+      visit root_url(:host => "google.com")
+      assert_contain "google"
+    end
   end
 
   test "should visit pages" do

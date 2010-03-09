@@ -34,7 +34,10 @@ module Webrat
     end
 
     def visit(url)
-      webdriver.navigate.to("http://#{Webrat.configuration.application_address}:#{Webrat.configuration.application_port}" + url)
+      unless url =~ /^http:/ 
+        url = "http://#{Webrat.configuration.application_address}:#{Webrat.configuration.application_port}" + url
+      end
+      webdriver.navigate.to(url)
     end
 
     webrat_deprecate :visits, :visit
