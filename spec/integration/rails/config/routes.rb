@@ -3,6 +3,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resource 'buttons', :only => [:show, :create]
   map.resource 'fields', :only => [:show]
   map.resource 'hovers', :only => [:show]
+  map.resource 'clicks', :only => [:show, :create]
   map.with_options :controller => "webrat" do |webrat|
     webrat.submit             "/submit",            :action => "submit"
     webrat.internal_redirect  "/internal_redirect", :action => "internal_redirect"
